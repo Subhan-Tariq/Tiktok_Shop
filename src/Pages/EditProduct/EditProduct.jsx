@@ -328,8 +328,7 @@ function EditProduct() {
         title="Some of your product variants are missing weights"
         tone="warning"
         action={{ content: "Edit variant weights", url: "" }}
-        secondaryAction={{ content: "Learn more", url: "" }}
-        onDismiss={() => {}}>
+        secondaryAction={{ content: "Learn more", url: "" }}>
         <List>
           <List.Item>
             The name of the city you’re shipping to has characters that aren’t
