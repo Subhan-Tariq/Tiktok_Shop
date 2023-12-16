@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useCallback } from "react";
 import {
   Tabs,
@@ -32,10 +34,9 @@ import {
 } from "@shopify/polaris-icons";
 import DisconnectShop from "../../Components/DisconnectShopModal/DisconnectShopModal";
 import SelectCategory from "../../Components/SelectCateories/SelectCateories";
-
+import CtmSelectCategory from "../../Components/SelectCateories/CtmSelectCategory";
 
 const Setting = () => {
- 
   // last button
   const [active, setActive] = React.useState(null);
 
@@ -49,7 +50,7 @@ const Setting = () => {
   const [Shopifyselected, setShopifyselected] = useState([]);
 
   const handleShopifyChange = useCallback(
-    (value) => setShopifyselected([...Shopifyselected],value),
+    (value) => setShopifyselected([...Shopifyselected], value),
     []
   );
 
@@ -58,10 +59,9 @@ const Setting = () => {
     { label: "Shop Location", value: "ShopLocation" },
   ];
 
-
-  // 
-  const [show,setShow] = useState(false);
-  function handelShowLocation(){
+  //
+  const [show, setShow] = useState(false);
+  function handelShowLocation() {
     setShow(!show);
   }
   // TikTOk inventory
@@ -90,36 +90,25 @@ const Setting = () => {
     []
   );
   // For length
-  const [lengthValue,setlengthValue]=useState("1");
-  const handlelengthChange =useCallback(
-    (value)=>setlengthValue(value),
-    [],
-  )
-    // For weidth
-    const [WidthValue,setWidthhValue]=useState("1");
-    const handleWidthChange =useCallback(
-      (value)=>setWidthhValue(value),
-      [],
-    )
-     // For Height
-     const [HeightValue,setHeightValue]=useState("1");
-     const handleHeightChange =useCallback(
-       (value)=>setHeightValue(value),
-       [],
-     )
+  const [lengthValue, setlengthValue] = useState("1");
+  const handlelengthChange = useCallback((value) => setlengthValue(value), []);
+  // For weidth
+  const [WidthValue, setWidthhValue] = useState("1");
+  const handleWidthChange = useCallback((value) => setWidthhValue(value), []);
+  // For Height
+  const [HeightValue, setHeightValue] = useState("1");
+  const handleHeightChange = useCallback((value) => setHeightValue(value), []);
 
-    //  handleweightChange
-    // For Weight
-    const [weightValue,setweightValue]=useState("1");
-    const handleweightChange =useCallback(
-      (value)=>setweightValue(value),
-      [],
-    )
+  //  handleweightChange
+  // For Weight
+  const [weightValue, setweightValue] = useState("1");
+  const handleweightChange = useCallback((value) => setweightValue(value), []);
 
   // Api Data fetch  check
-  const [test,test2] = useState (false);
-  return (
-    (test === true ? (<SkeletonStructure/>):(
+  const [test, test2] = useState(false);
+  return test === true ? (
+    <SkeletonStructure />
+  ) : (
     <Page>
       <Layout>
         <Layout.Section>
@@ -133,8 +122,7 @@ const Setting = () => {
                 <Layout.AnnotatedSection
                   id="Merchant Details"
                   title="Merchant Details"
-                  description="Following are Details of Connected Tiktok Shop."
-                >
+                  description="Following are Details of Connected Tiktok Shop.">
                   <Card sectioned>
                     <InlineGrid columns={{ xs: 2 }}>
                       <div>
@@ -155,8 +143,7 @@ const Setting = () => {
                               />
                             }
                             autofocusTarget="first-node"
-                            onClose={toggleActive("popover2")}
-                          >
+                            onClose={toggleActive("popover2")}>
                             <ActionList
                               actionRole="menuitem"
                               items={[{ content: "Switch Account" }]}
@@ -189,7 +176,7 @@ const Setting = () => {
                             </Text>
                           </div>
                           <Box as="div" align="end">
-                            <DisconnectShop />
+                            {/* <DisconnectShop /> */}
                           </Box>
                         </InlineGrid>
                       </Card>
@@ -203,32 +190,32 @@ const Setting = () => {
                 <Layout.AnnotatedSection
                   id="Inventory Location"
                   title="Inventory Location"
-                  description="Select Shopify Location to sync the inventory across channels"
-                >
+                  description="Select Shopify Location to sync the inventory across channels">
                   <Card sectioned>
                     <InlineGrid columns={{ xs: 2 }}>
                       <div>
                         <Text>LOCATION FOR INVENTORY SYNC</Text>
                       </div>
                       <div className="dis-Last">
-                        <Button icon={MobilePlusMajor} size="large" onClick={handelShowLocation}>
+                        <Button
+                          icon={MobilePlusMajor}
+                          size="large"
+                          onClick={handelShowLocation}>
                           Add
                         </Button>
                       </div>
-
                     </InlineGrid>
                     <div className="marginTop20">
-                          <Card>
-                            <InlineGrid columns={{ xs: 2 }} gap={400}>
-                              <div>
-                                <Text>Shopify Inventory location</Text>
-                              </div>
-                              <div>
-                              <Text>TikTok Inventory location</Text>
-                              </div>
-                              
-                            </InlineGrid>
-                            {show ? (
+                      <Card>
+                        <InlineGrid columns={{ xs: 2 }} gap={400}>
+                          <div>
+                            <Text>Shopify Inventory location</Text>
+                          </div>
+                          <div>
+                            <Text>TikTok Inventory location</Text>
+                          </div>
+                        </InlineGrid>
+                        {show ? (
                           <div className="marginTop20">
                             <InlineGrid columns={{ xs: 2 }} gap={400}>
                               <div>
@@ -248,14 +235,12 @@ const Setting = () => {
                                 />
                               </Box>
                             </InlineGrid>
-                        </div>
-                    ) :
-                    (
-                      ""
-                    )}
-                          </Card>
-                        </div>
-                    
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </Card>
+                    </div>
                   </Card>
                 </Layout.AnnotatedSection>
               </Layout>
@@ -265,8 +250,7 @@ const Setting = () => {
                 <Layout.AnnotatedSection
                   id="Product Webhooks Settings"
                   title="Product Webhooks Settings"
-                  description="Instantly sync product changes from Shopify."
-                >
+                  description="Instantly sync product changes from Shopify.">
                   <Card sectioned>
                     <div className="marginTop20">
                       <InlineStack gap={400}>
@@ -278,31 +262,32 @@ const Setting = () => {
                             name="accounts"
                             onChange={handleChange}
                           />
-                          <Tooltip  content="This order has shipping labels." className="">
-                          <Icon
-                            source={QuestionMarkInverseMajor}
-                            tone="base"
-                          />
+                          <Tooltip
+                            content="This order has shipping labels."
+                            className="">
+                            <Icon
+                              source={QuestionMarkInverseMajor}
+                              tone="base"
+                            />
                           </Tooltip>
-                          
                         </InlineStack>
                         <InlineStack gap={400}>
-                        <RadioButton
-                          label="Manual"
-                          id="optional"
-                          name="accounts"
-                          checked={value === "optional"}
-                          onChange={handleChange}
-                        />
-                        <Tooltip  content="This order has shipping labels." className="flex">
-                          <Icon
-                            source={QuestionMarkInverseMajor}
-                            tone="base"
+                          <RadioButton
+                            label="Manual"
+                            id="optional"
+                            name="accounts"
+                            checked={value === "optional"}
+                            onChange={handleChange}
                           />
+                          <Tooltip
+                            content="This order has shipping labels."
+                            className="flex">
+                            <Icon
+                              source={QuestionMarkInverseMajor}
+                              tone="base"
+                            />
                           </Tooltip>
                         </InlineStack>
-                        
-                        
                       </InlineStack>
                       <div className="margtop10">
                         <Divider />
@@ -365,8 +350,7 @@ const Setting = () => {
                 <Layout.AnnotatedSection
                   id="Shipping and Warranty"
                   title="Shipping_and_Warranty"
-                  description="Enter default value if your product don't have weight and dimensions, we will be used to calculate shipping fee and shipping method."
-                >
+                  description="Enter default value if your product don't have weight and dimensions, we will be used to calculate shipping fee and shipping method.">
                   <Card sectioned>
                     <div className="marginTop20">
                       <div className="margtop10">
@@ -381,7 +365,6 @@ const Setting = () => {
                             autoComplete="off"
                             showCharacterCount
                             prefix="cm"
-                            
                           />
                         </InlineGrid>
                       </div>
@@ -397,7 +380,6 @@ const Setting = () => {
                             autoComplete="off"
                             showCharacterCount
                             prefix="cm"
-                            
                           />
                         </InlineGrid>
                       </div>
@@ -413,7 +395,6 @@ const Setting = () => {
                             autoComplete="off"
                             showCharacterCount
                             prefix="cm"
-                            
                           />
                         </InlineGrid>
                       </div>
@@ -421,7 +402,7 @@ const Setting = () => {
                         <InlineGrid columns={["oneThird", "twoThirds"]}>
                           <Text>Shipping Weight</Text>
                           <TextField
-                           type="number"
+                            type="number"
                             placeholder="Weight"
                             value={weightValue}
                             onChange={handleweightChange}
@@ -442,11 +423,11 @@ const Setting = () => {
                 <Layout.AnnotatedSection
                   id="Select TikTok Shop category"
                   title="Select TikTok Shop category"
-                  description="Following are Details of Connected Tiktok Shop."
-                >
+                  description="Following are Details of Connected Tiktok Shop.">
                   <Card sectioned>
-                    <div className="margtop10">
-                          <SelectCategory/>
+                    <div className="margtop10" style={{}}>
+                      {/* <SelectCategory /> */}
+                      <CtmSelectCategory />
                     </div>
                   </Card>
                 </Layout.AnnotatedSection>
@@ -456,7 +437,6 @@ const Setting = () => {
         </Layout.Section>
       </Layout>
     </Page>
-    ))
   );
 };
 

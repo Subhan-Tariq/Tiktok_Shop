@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   Page,
   Grid,
@@ -174,21 +176,22 @@ function Plans() {
     { label: "5000", value: "699" },
   ];
   // Api Data fetch  check
-  const [test,settest] = useState (false);
-  return (
-    (test === true ? (<SkeletonStructure/>):(
+  const [test, settest] = useState(false);
+  return test === true ? (
+    <SkeletonStructure />
+  ) : (
     <Page title="Plans">
       <div className="margtop10">
-      <InlineGrid columns={["twoThirds", "oneThird"]}>
+        <InlineGrid columns={["twoThirds", "oneThird"]}>
           <Text></Text>
           <InlineStack gap={200}>
-          <TextField
-            value={discount}
-            onChange={handlediscountChange}
-            autoComplete="off"
-            placeholder="Apply Discount "
-          />
-          <Button>Apply Discount</Button>
+            <TextField
+              value={discount}
+              onChange={handlediscountChange}
+              autoComplete="off"
+              placeholder="Apply Discount "
+            />
+            <Button>Apply Discount</Button>
           </InlineStack>
         </InlineGrid>
       </div>
@@ -196,14 +199,12 @@ function Plans() {
         <ButtonGroup variant="segmented">
           <Button
             pressed={isFirstButtonActive}
-            onClick={handleFirstButtonClick}
-          >
+            onClick={handleFirstButtonClick}>
             Billed Monthly
           </Button>
           <Button
             pressed={!isFirstButtonActive}
-            onClick={handleSecondButtonClick}
-          >
+            onClick={handleSecondButtonClick}>
             Billed Annually
           </Button>
         </ButtonGroup>
@@ -212,253 +213,257 @@ function Plans() {
       {isFirstButtonActive === true ? (
         <>
           <Grid columns={{ xs: 1 }}>
-            <Grid.Cell columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }} style={{backgroundColor:"#ffff"}}>
+            <Grid.Cell
+              columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}
+              style={{ backgroundColor: "#ffff" }}>
               <div className="plan-Strach">
-              <Card title="Hybrid Plan" sectioned padding="400">
-                <Text variant="bodyLg" as="p">
-                  Essentials
-                </Text>
-                <Text variant="headingXl" as="h4">
-                  ${EMonthselected}/Monthly
-                </Text>
-                <Text variant="bodyLg" as="p">
-                  Key features and integrations
-                </Text>
-                <div className="marginTop20">
-                  <Divider />
-                </div>
-                <Box as="div" className="margtop10 inline">
-                  <Select
-                    label="TikTok Shop orders"
-                    labelInline
-                    options={EMonthoptions}
-                    onChange={handleEMonthselectedChange}
-                    value={EMonthselected}
-                  />
-                </Box>
-                <Box as="div" className="margtop10">
+                <Card title="Hybrid Plan" sectioned padding="400">
+                  <Text variant="bodyLg" as="p">
+                    Essentials
+                  </Text>
+                  <Text variant="headingXl" as="h4">
+                    ${EMonthselected}/Monthly
+                  </Text>
+                  <Text variant="bodyLg" as="p">
+                    Key features and integrations
+                  </Text>
+                  <div className="marginTop20">
+                    <Divider />
+                  </div>
+                  <Box as="div" className="margtop10 inline">
+                    <Select
+                      label="TikTok Shop orders"
+                      labelInline
+                      options={EMonthoptions}
+                      onChange={handleEMonthselectedChange}
+                      value={EMonthselected}
+                    />
+                  </Box>
+                  <Box as="div" className="margtop10">
+                    <div className="flex-inline">
+                      <div>
+                        <Icon source={TickSmallMinor} tone="base" />
+                      </div>
+                      <Text>Connect your eCommerce store</Text>
+                    </div>
+                  </Box>
+                  <Box as="div" className="margtop10"></Box>
                   <div className="flex-inline">
                     <div>
                       <Icon source={TickSmallMinor} tone="base" />
                     </div>
-                    <Text>Connect your eCommerce store</Text>
+                    <Text>Bulk map products to TikTok Shop categories</Text>
                   </div>
-                </Box>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>List products on TikTok Shop</Text>
                   </div>
-                  <Text>Bulk map products to TikTok Shop categories</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Manage orders on your eCommerce store</Text>
                   </div>
-                  <Text>List products on TikTok Shop</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Sync pricing and inventory to TikTok Shop</Text>
                   </div>
-                  <Text>Manage orders on your eCommerce store</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Bulk edit product information</Text>
                   </div>
-                  <Text>Sync pricing and inventory to TikTok Shop</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Auto-sync product details</Text>
                   </div>
-                  <Text>Bulk edit product information</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Order management dashboard</Text>
                   </div>
-                  <Text>Auto-sync product details</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
-                  </div>
-                  <Text>Order management dashboard</Text>
-                </div>
-                <Box as="div" className="marginTop20">
-                  <Divider />
-                </Box>
-                <Box as="div" className="dis-center">
-                  <Button size="large">Start Free Trials</Button>
-                </Box>
-              </Card>
+                  <Box as="div" className="marginTop20">
+                    <Divider />
+                  </Box>
+                  <Box as="div" className="dis-center">
+                    <Button size="large">Start Free Trials</Button>
+                  </Box>
+                </Card>
               </div>
             </Grid.Cell>
-            <Grid.Cell columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}  style={{backgroundColor:"#ffff"}}>
-            <div className="plan-Strach">
-              <Card title="Hybrid Plan" sectioned padding="400">
-                <Text variant="bodyLg" as="p">
-                  Pro Plan
-                </Text>
-                <Text variant="headingXl" as="h4">
-                  ${PMonthselected}/Monthly
-                </Text>
-                <Text variant="bodyLg" as="p">
-                  Streamline your sales process
-                </Text>
-                <div className="marginTop20">
-                  <Divider />
-                </div>
-                <Box as="div" className="margtop10 inline">
-                  <Select
-                    label="TikTok Shop orders"
-                    labelInline
-                    options={PMonthoptions}
-                    onChange={handlePMonthselectedChange}
-                    value={PMonthselected}
-                  />
-                </Box>
-                <Box as="div" className="margtop10">
+            <Grid.Cell
+              columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}
+              style={{ backgroundColor: "#ffff" }}>
+              <div className="plan-Strach">
+                <Card title="Hybrid Plan" sectioned padding="400">
+                  <Text variant="bodyLg" as="p">
+                    Pro Plan
+                  </Text>
+                  <Text variant="headingXl" as="h4">
+                    ${PMonthselected}/Monthly
+                  </Text>
+                  <Text variant="bodyLg" as="p">
+                    Streamline your sales process
+                  </Text>
+                  <div className="marginTop20">
+                    <Divider />
+                  </div>
+                  <Box as="div" className="margtop10 inline">
+                    <Select
+                      label="TikTok Shop orders"
+                      labelInline
+                      options={PMonthoptions}
+                      onChange={handlePMonthselectedChange}
+                      value={PMonthselected}
+                    />
+                  </Box>
+                  <Box as="div" className="margtop10">
+                    <div className="flex-inline">
+                      <div>
+                        <Icon source={TickSmallMinor} tone="base" />
+                      </div>
+                      <Text>Filter products in category mapping</Text>
+                    </div>
+                  </Box>
+                  <Box as="div" className="margtop10"></Box>
                   <div className="flex-inline">
                     <div>
                       <Icon source={TickSmallMinor} tone="base" />
                     </div>
-                    <Text>Filter products in category mapping</Text>
+                    <Text>Use non-default currency to connect store</Text>
                   </div>
-                </Box>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Price and pricing rule synchronization</Text>
                   </div>
-                  <Text>Use non-default currency to connect store</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Auto-hold orders in case of cancellation</Text>
                   </div>
-                  <Text>Price and pricing rule synchronization</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Set inventory sync rules</Text>
                   </div>
-                  <Text>Auto-hold orders in case of cancellation</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Customize order number format</Text>
                   </div>
-                  <Text>Set inventory sync rules</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Sync returns and refunds</Text>
                   </div>
-                  <Text>Customize order number format</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
-                  </div>
-                  <Text>Sync returns and refunds</Text>
-                </div>
-                <Box as="div" className="marginTop20">
-                  <Divider />
-                </Box>
-                <Box as="div" className="dis-center">
-                  <Button size="large">Start Free Trials</Button>
-                </Box>
-              </Card>
+                  <Box as="div" className="marginTop20">
+                    <Divider />
+                  </Box>
+                  <Box as="div" className="dis-center">
+                    <Button size="large">Start Free Trials</Button>
+                  </Box>
+                </Card>
               </div>
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}>
-            <div className="plan-Strach">
-              <Card title="Hybrid Plan" sectioned padding="400">
-                <Text variant="bodyLg" as="p">
-                  Enterprise
-                </Text>
-                <Text variant="headingXl" as="h4">
-                  ${EPMonthselected}/Monthly
-                </Text>
-                <Text variant="bodyLg" as="p">
-                  Full customization and support
-                </Text>
-                <div className="marginTop20">
-                  <Divider />
-                </div>
-                <Box as="div" className="margtop10 inline">
-                  <Select
-                    label="TikTok Shop orders"
-                    labelInline
-                    options={EPMonthoptions}
-                    onChange={handleEPMonthselectedChange}
-                    value={EPMonthselected}
-                  />
-                </Box>
-                <Box as="div" className="margtop10">
+              <div className="plan-Strach">
+                <Card title="Hybrid Plan" sectioned padding="400">
+                  <Text variant="bodyLg" as="p">
+                    Enterprise
+                  </Text>
+                  <Text variant="headingXl" as="h4">
+                    ${EPMonthselected}/Monthly
+                  </Text>
+                  <Text variant="bodyLg" as="p">
+                    Full customization and support
+                  </Text>
+                  <div className="marginTop20">
+                    <Divider />
+                  </div>
+                  <Box as="div" className="margtop10 inline">
+                    <Select
+                      label="TikTok Shop orders"
+                      labelInline
+                      options={EPMonthoptions}
+                      onChange={handleEPMonthselectedChange}
+                      value={EPMonthselected}
+                    />
+                  </Box>
+                  <Box as="div" className="margtop10">
+                    <div className="flex-inline">
+                      <div>
+                        <Icon source={TickSmallMinor} tone="base" />
+                      </div>
+                      <Text>Custom integrations</Text>
+                    </div>
+                  </Box>
+                  <Box as="div" className="margtop10"></Box>
                   <div className="flex-inline">
                     <div>
                       <Icon source={TickSmallMinor} tone="base" />
                     </div>
-                    <Text>Custom integrations</Text>
+                    <Text>External single sign-on (SSO)</Text>
                   </div>
-                </Box>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Customize product import rules</Text>
                   </div>
-                  <Text>External single sign-on (SSO)</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Dedicated customer success manager</Text>
                   </div>
-                  <Text>Customize product import rules</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Dedicated onboarding manager</Text>
                   </div>
-                  <Text>Dedicated customer success manager</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Silver support plan</Text>
                   </div>
-                  <Text>Dedicated onboarding manager</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
-                  </div>
-                  <Text>Silver support plan</Text>
-                </div>
-                <Box as="div" className="marginTop20">
-                  <Divider />
-                </Box>
-                <Box as="div" className="dis-center">
-                  <Button size="large">Start Free Trials</Button>
-                </Box>
-              </Card>
+                  <Box as="div" className="marginTop20">
+                    <Divider />
+                  </Box>
+                  <Box as="div" className="dis-center">
+                    <Button size="large">Start Free Trials</Button>
+                  </Box>
+                </Card>
               </div>
             </Grid.Cell>
           </Grid>
@@ -467,262 +472,264 @@ function Plans() {
         <>
           <Grid columns={{ xs: 1 }}>
             <Grid.Cell columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}>
-            <div className="plan-Strach">
-              <Card title="Hybrid Plan" sectioned padding="400">
-                <Text variant="bodyLg" as="p">
-                  Essentials
-                </Text>
-                <Text variant="headingXl" as="h4">
-                  ${EYearlyselected}/Yearly
-                </Text>
-                <Text variant="bodyLg" as="p">
-                  Key features and integrations
-                </Text>
-                <div className="marginTop20">
-                  <Divider />
-                </div>
-                <Box as="div" className="margtop10 inline">
-                  <Select
-                    label="TikTok Shop orders"
-                    labelInline
-                    options={EYearlyoptions}
-                    onChange={handleEYearlyselectedChange}
-                    value={EYearlyselected}
-                  />
-                </Box>
-                <Box as="div" className="margtop10">
+              <div className="plan-Strach">
+                <Card title="Hybrid Plan" sectioned padding="400">
+                  <Text variant="bodyLg" as="p">
+                    Essentials
+                  </Text>
+                  <Text variant="headingXl" as="h4">
+                    ${EYearlyselected}/Yearly
+                  </Text>
+                  <Text variant="bodyLg" as="p">
+                    Key features and integrations
+                  </Text>
+                  <div className="marginTop20">
+                    <Divider />
+                  </div>
+                  <Box as="div" className="margtop10 inline">
+                    <Select
+                      label="TikTok Shop orders"
+                      labelInline
+                      options={EYearlyoptions}
+                      onChange={handleEYearlyselectedChange}
+                      value={EYearlyselected}
+                    />
+                  </Box>
+                  <Box as="div" className="margtop10">
+                    <div className="flex-inline">
+                      <div>
+                        <Icon source={TickSmallMinor} tone="base" />
+                      </div>
+                      <Text>Connect your eCommerce store</Text>
+                    </div>
+                  </Box>
+                  <Box as="div" className="margtop10"></Box>
                   <div className="flex-inline">
                     <div>
                       <Icon source={TickSmallMinor} tone="base" />
                     </div>
-                    <Text>Connect your eCommerce store</Text>
+                    <Text>Bulk map products to TikTok Shop categories</Text>
                   </div>
-                </Box>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>List products on TikTok Shop</Text>
                   </div>
-                  <Text>Bulk map products to TikTok Shop categories</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Manage orders on your eCommerce store</Text>
                   </div>
-                  <Text>List products on TikTok Shop</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Sync pricing and inventory to TikTok Shop</Text>
                   </div>
-                  <Text>Manage orders on your eCommerce store</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Bulk edit product information</Text>
                   </div>
-                  <Text>Sync pricing and inventory to TikTok Shop</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Auto-sync product details</Text>
                   </div>
-                  <Text>Bulk edit product information</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Order management dashboard</Text>
                   </div>
-                  <Text>Auto-sync product details</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
-                  </div>
-                  <Text>Order management dashboard</Text>
-                </div>
-                <Box as="div" className="marginTop20">
-                  <Divider />
-                </Box>
-                <Box as="div" className="dis-center">
-                  <Button size="large">Start Free Trials</Button>
-                </Box>
-              </Card>
+                  <Box as="div" className="marginTop20">
+                    <Divider />
+                  </Box>
+                  <Box as="div" className="dis-center">
+                    <Button size="large">Start Free Trials</Button>
+                  </Box>
+                </Card>
               </div>
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}>
-            <div className="plan-Strach">
-              <Card title="Hybrid Plan" sectioned padding="400">
-                <Text variant="bodyLg" as="p">
-                  Pro Plan
-                </Text>
-                <Text variant="headingXl" as="h4">
-                  ${PYearlyselected}/Yearly
-                </Text>
-                <Text variant="bodyLg" as="p">
-                  Streamline your sales process
-                </Text>
-                <div className="marginTop20">
-                  <Divider />
-                </div>
-                <Box as="div" className="margtop10 inline">
-                  <Select
-                    label="TikTok Shop orders"
-                    labelInline
-                    options={PYearlyoptions}
-                    onChange={handlePYearlyselectedChange}
-                    value={PYearlyselected}
-                  />
-                </Box>
-                <Box as="div" className="margtop10">
+              <div className="plan-Strach">
+                <Card title="Hybrid Plan" sectioned padding="400">
+                  <Text variant="bodyLg" as="p">
+                    Pro Plan
+                  </Text>
+                  <Text variant="headingXl" as="h4">
+                    ${PYearlyselected}/Yearly
+                  </Text>
+                  <Text variant="bodyLg" as="p">
+                    Streamline your sales process
+                  </Text>
+                  <div className="marginTop20">
+                    <Divider />
+                  </div>
+                  <Box as="div" className="margtop10 inline">
+                    <Select
+                      label="TikTok Shop orders"
+                      labelInline
+                      options={PYearlyoptions}
+                      onChange={handlePYearlyselectedChange}
+                      value={PYearlyselected}
+                    />
+                  </Box>
+                  <Box as="div" className="margtop10">
+                    <div className="flex-inline">
+                      <div>
+                        <Icon source={TickSmallMinor} tone="base" />
+                      </div>
+                      <Text>Filter products in category mapping</Text>
+                    </div>
+                  </Box>
+                  <Box as="div" className="margtop10"></Box>
                   <div className="flex-inline">
                     <div>
                       <Icon source={TickSmallMinor} tone="base" />
                     </div>
-                    <Text>Filter products in category mapping</Text>
+                    <Text>Use non-default currency to connect store</Text>
                   </div>
-                </Box>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Price and pricing rule synchronization</Text>
                   </div>
-                  <Text>Use non-default currency to connect store</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Auto-hold orders in case of cancellation</Text>
                   </div>
-                  <Text>Price and pricing rule synchronization</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Set inventory sync rules</Text>
                   </div>
-                  <Text>Auto-hold orders in case of cancellation</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Customize order number format</Text>
                   </div>
-                  <Text>Set inventory sync rules</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Sync returns and refunds</Text>
                   </div>
-                  <Text>Customize order number format</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
-                  </div>
-                  <Text>Sync returns and refunds</Text>
-                </div>
-                <Box as="div" className="marginTop20">
-                  <Divider />
-                </Box>
-                <Box as="div" className="dis-center">
-                  <Button size="large">Start Free Trials</Button>
-                </Box>
-              </Card>
+                  <Box as="div" className="marginTop20">
+                    <Divider />
+                  </Box>
+                  <Box as="div" className="dis-center">
+                    <Button size="large">Start Free Trials</Button>
+                  </Box>
+                </Card>
               </div>
             </Grid.Cell>
             <Grid.Cell columnSpan={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}>
-            <div className="plan-Strach">
-              <Card title="Hybrid Plan" sectioned padding="400">
-                <Text variant="bodyLg" as="p">
-                  Enterprise
-                </Text>
-                <Text variant="headingXl" as="h4">
-                  ${EPYearlyselected}/Yearly
-                </Text>
-                <Text variant="bodyLg" as="p">
-                  Full customization and support
-                </Text>
-                <div className="marginTop20">
-                  <Divider />
-                </div>
-                <Box as="div" className="margtop10 inline">
-                  <Select
-                    label="TikTok Shop orders"
-                    labelInline
-                    options={EPYearlyoptions}
-                    onChange={handleEPYearlyselectedChange}
-                    value={EPYearlyselected}
-                  />
-                </Box>
-                <Box as="div" className="margtop10">
+              <div className="plan-Strach">
+                <Card title="Hybrid Plan" sectioned padding="400">
+                  <Text variant="bodyLg" as="p">
+                    Enterprise
+                  </Text>
+                  <Text variant="headingXl" as="h4">
+                    ${EPYearlyselected}/Yearly
+                  </Text>
+                  <Text variant="bodyLg" as="p">
+                    Full customization and support
+                  </Text>
+                  <div className="marginTop20">
+                    <Divider />
+                  </div>
+                  <Box as="div" className="margtop10 inline">
+                    <Select
+                      label="TikTok Shop orders"
+                      labelInline
+                      options={EPYearlyoptions}
+                      onChange={handleEPYearlyselectedChange}
+                      value={EPYearlyselected}
+                    />
+                  </Box>
+                  <Box as="div" className="margtop10">
+                    <div className="flex-inline">
+                      <div>
+                        <Icon source={TickSmallMinor} tone="base" />
+                      </div>
+                      <Text>Custom integrations</Text>
+                    </div>
+                  </Box>
+                  <Box as="div" className="margtop10"></Box>
                   <div className="flex-inline">
                     <div>
                       <Icon source={TickSmallMinor} tone="base" />
                     </div>
-                    <Text>Custom integrations</Text>
+                    <Text>External single sign-on (SSO)</Text>
                   </div>
-                </Box>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
-                  </div>
-                  <Text>External single sign-on (SSO)</Text>
-                </div>
 
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Customize product import rules</Text>
                   </div>
-                  <Text>Customize product import rules</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Dedicated customer success manager</Text>
                   </div>
-                  <Text>Dedicated customer success manager</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Dedicated onboarding manager</Text>
                   </div>
-                  <Text>Dedicated onboarding manager</Text>
-                </div>
-                <Box as="div" className="margtop10"></Box>
-                <div className="flex-inline">
-                  <div>
-                    <Icon source={TickSmallMinor} tone="base" />
+                  <Box as="div" className="margtop10"></Box>
+                  <div className="flex-inline">
+                    <div>
+                      <Icon source={TickSmallMinor} tone="base" />
+                    </div>
+                    <Text>Silver support plan</Text>
                   </div>
-                  <Text>Silver support plan</Text>
-                </div>
-                <Box as="div" className="marginTop20">
-                  <Divider />
-                </Box>
-                <Box as="div" className="dis-center">
-                  <Button size="large">Start Free Trials</Button>
-                </Box>
-              </Card>
+                  <Box as="div" className="marginTop20">
+                    <Divider />
+                  </Box>
+                  <Box as="div" className="dis-center">
+                    <Button size="large">Start Free Trials</Button>
+                  </Box>
+                </Card>
               </div>
             </Grid.Cell>
           </Grid>
         </>
       )}
-    <div className="marginTop">
-      <Grid columns={{xs:1}}>
-        <Grid.Cell columnSpan={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }} style={{backgroundColor:"#ffff"}}>
-              <div className="plan-Strach">
+      <div className="marginTop">
+        <Grid columns={{ xs: 1 }}>
+          <Grid.Cell
+            columnSpan={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}
+            style={{ backgroundColor: "#ffff" }}>
+            <div className="plan-Strach">
               <Card title="Hybrid Plan" sectioned padding="400">
                 <Text variant="headingXl" as="h4">
                   Free
@@ -783,12 +790,11 @@ function Plans() {
                   <Button size="large">Start Free Trials</Button>
                 </Box>
               </Card>
-              </div>
-            </Grid.Cell>
-      </Grid>
+            </div>
+          </Grid.Cell>
+        </Grid>
       </div>
     </Page>
-    ))
   );
 }
 export default Plans;

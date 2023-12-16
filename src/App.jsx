@@ -30,6 +30,7 @@ const PixelFaqs = React.lazy(() => import("./Pages/_Pixel/Faqs/Faqs"));
 import Header from "./Components/Header/Header";
 import PixelHeader from "./Components/_pixelComponents/Header/_pixelHeader";
 import SkeletonStructure from "./Components/SkeletonStructure/SkeletonStructure";
+import LinkProduct from "./Pages/LinkProduct/LinkProduct";
 
 const App = () => {
   function AppNavbar() {
@@ -38,7 +39,7 @@ const App = () => {
     // const hideNavbar =
     //   pathname === "/Installation"
 
-    if (pathname === "/Installation") {
+    if (pathname === "/installation") {
       return null;
     } else if (
       pathname === "/pixel" ||
@@ -166,6 +167,19 @@ const App = () => {
                 </Frame>
               }>
               <EditProduct />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="/linkproduct"
+          element={
+            <React.Suspense
+              fallback={
+                <Frame>
+                  <Loading />
+                </Frame>
+              }>
+              <LinkProduct />
             </React.Suspense>
           }
         />

@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+/** @format */
+
+import React, { useState } from "react";
 import {
   Icon,
   Card,
@@ -7,72 +9,71 @@ import {
   AutoSelection,
   Scrollable,
   EmptySearchResult,
-} from '@shopify/polaris';
-import {SearchMinor} from '@shopify/polaris-icons';
+} from "@shopify/polaris";
+import { SearchMinor } from "@shopify/polaris-icons";
 
-
-const actionValue = '__ACTION__';
+const actionValue = "__ACTION__";
 
 const segments = [
   {
-    label: 'All customers',
-    id: 'gid://shopify/CustomerSegment/1',
-    value: '0',
+    label: "All customers",
+    id: "gid://shopify/CustomerSegment/1",
+    value: "0",
   },
   {
-    label: 'VIP customers',
-    id: 'gid://shopify/CustomerSegment/2',
-    value: '1',
+    label: "VIP customers",
+    id: "gid://shopify/CustomerSegment/2",
+    value: "1",
   },
   {
-    label: 'New customers',
-    id: 'gid://shopify/CustomerSegment/3',
-    value: '2',
+    label: "New customers",
+    id: "gid://shopify/CustomerSegment/3",
+    value: "2",
   },
   {
-    label: 'Abandoned carts - last 30 days',
-    id: 'gid://shopify/CustomerSegment/4',
-    value: '3',
+    label: "Abandoned carts - last 30 days",
+    id: "gid://shopify/CustomerSegment/4",
+    value: "3",
   },
   {
-    label: 'Wholesale customers',
-    id: 'gid://shopify/CustomerSegment/5',
-    value: '4',
+    label: "Wholesale customers",
+    id: "gid://shopify/CustomerSegment/5",
+    value: "4",
   },
   {
-    label: 'Email subscribers',
-    id: 'gid://shopify/CustomerSegment/6',
-    value: '5',
+    label: "Email subscribers",
+    id: "gid://shopify/CustomerSegment/6",
+    value: "5",
   },
   {
-    label: 'From New York',
-    id: 'gid://shopify/CustomerSegment/7',
-    value: '6',
+    label: "From New York",
+    id: "gid://shopify/CustomerSegment/7",
+    value: "6",
   },
   {
-    label: 'Repeat buyers',
-    id: 'gid://shopify/CustomerSegment/8',
-    value: '7',
+    label: "Repeat buyers",
+    id: "gid://shopify/CustomerSegment/8",
+    value: "7",
   },
   {
-    label: 'First time buyers',
-    id: 'gid://shopify/CustomerSegment/9',
-    value: '8',
+    label: "First time buyers",
+    id: "gid://shopify/CustomerSegment/9",
+    value: "8",
   },
   {
-    label: 'From Canada',
-    id: 'gid://shopify/CustomerSegment/10',
-    value: '9',
+    label: "From Canada",
+    id: "gid://shopify/CustomerSegment/10",
+    value: "9",
   },
   {
-    label: 'Bought in last 60 days',
-    id: 'gid://shopify/CustomerSegment/11',
-    value: '10',
+    label: "Bought in last 60 days",
+    id: "gid://shopify/CustomerSegment/11",
+    value: "10",
   },
   {
-    label: 'Bought last BFCM',
-    id: 'gid://shopify/CustomerSegment/12',
-    value: '11',
+    label: "Bought last BFCM",
+    id: "gid://shopify/CustomerSegment/12",
+    value: "11",
   },
 ];
 
@@ -88,7 +89,7 @@ const interval = 25;
 
 function SelectCategory() {
   const [showFooterAction, setShowFooterAction] = useState(true);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [lazyLoading, setLazyLoading] = useState(false);
   const [willLoadMoreResults, setWillLoadMoreResults] = useState(true);
   const [visibleOptionIndex, setVisibleOptionIndex] = useState(6);
@@ -118,7 +119,7 @@ function SelectCategory() {
   };
 
   const handleQueryClear = () => {
-    handleQueryChange('');
+    handleQueryChange("");
   };
 
   const handleSegmentSelect = (segmentIndex) => {
@@ -162,10 +163,10 @@ function SelectCategory() {
     }
   };
 
-  const listboxId = 'SearchableListbox';
+  const listboxId = "SearchableListbox";
 
   const textFieldMarkup = (
-    <div style={{padding: '12px'}}>
+    <div style={{ padding: "12px" }}>
       <TextField
         focused={showFooterAction}
         clearButton
@@ -189,7 +190,7 @@ function SelectCategory() {
     segmentOptions.length > 0
       ? segmentOptions
           .slice(0, visibleOptionIndex)
-          .map(({label, id, value}) => {
+          .map(({ label, id, value }) => {
             const selected = segments[selectedSegmentIndex].value === value;
 
             return (
@@ -204,7 +205,7 @@ function SelectCategory() {
 
   const showAllMarkup = showFooterAction ? (
     <Listbox.Action value={actionValue}>
-      <span style={{color: 'var(--p-color-text-emphasis)'}}>
+      <span style={{ color: "var(--p-color-text-emphasis)" }}>
         Show all 111 segments
       </span>
     </Listbox.Action>
@@ -213,7 +214,7 @@ function SelectCategory() {
   const lazyLoadingMarkup = lazyLoading ? (
     <Listbox.Loading
       accessibilityLabel={`${
-        query ? 'Filtering' : 'Loading'
+        query ? "Filtering" : "Loading"
       } customer segments`}
     />
   ) : null;
@@ -233,8 +234,7 @@ function SelectCategory() {
       accessibilityLabel="Search for and select a customer segment"
       customListId={listboxId}
       onSelect={handleSegmentSelect}
-      onActiveOptionChange={handleActiveOptionChange}
-    >
+      onActiveOptionChange={handleActiveOptionChange}>
       {segmentList}
       {showAllMarkup}
       {noResultsMarkup}
@@ -246,30 +246,28 @@ function SelectCategory() {
     <Card>
       <div
         style={{
-          alignItems: 'stretch',
-          borderTop: '1px solid #DFE3E8',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'stretch',
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-          overflow: 'hidden',
-        }}
-      >
+          alignItems: "stretch",
+          borderTop: "1px solid #DFE3E8",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "stretch",
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+        }}>
         {textFieldMarkup}
 
         <Scrollable
           shadow
           style={{
-            position: 'relative',
-            height: '292px',
-            padding: 'var(--p-space-200) 0',
-            borderBottomLeftRadius: 'var(--p-border-radius-200)',
-            borderBottomRightRadius: 'var(--p-border-radius-200)',
+            position: "relative",
+            height: "292px",
+            padding: "var(--p-space-200) 0",
+            borderBottomLeftRadius: "var(--p-border-radius-200)",
+            borderBottomRightRadius: "var(--p-border-radius-200)",
           }}
-          onScrolledToBottom={handleLazyLoadSegments}
-        >
+          onScrolledToBottom={handleLazyLoadSegments}>
           {listboxMarkup}
         </Scrollable>
       </div>

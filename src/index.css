@@ -5,8 +5,9 @@
   margin-bottom: 10px;
 }
 .inline {
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
 }
 .dis-Last {
   display: flex;
@@ -162,6 +163,12 @@
 }
 
 /* Multi step form header */
+.step-active p {
+  margin-top: 0px !important;
+}
+.text-circle p {
+  margin-top: -1px;
+}
 .text-circle {
   width: 20px;
   height: 20px;
@@ -170,7 +177,7 @@
   color: #fff;
   text-align: center;
   border-radius: 50%;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
 }
 .divider-wrapper {
   width: 22%;
@@ -209,6 +216,9 @@
 .marginTop50 {
   margin-top: 50px;
 }
+.marginTop80 {
+  margin-top: 80px;
+}
 
 .connect-List {
   padding-right: 30px;
@@ -225,10 +235,10 @@
   height: 100%;
 }
 
-html[class~="Polaris-Summer-Editions-2023"] .Polaris-DropZone {
-  background-color: var(--p-color-bg-input);
+/* html[class~="Polaris-Summer-Editions-2023"] .Polaris-DropZone {
+  background-color: var(--p-color-bg-surface);
   height: 100%;
-}
+} */
 
 .FullBox {
   display: flex;
@@ -248,4 +258,22 @@ html[class~="Polaris-Summer-Editions-2023"] .Polaris-DropZone {
 }
 .start_hover :hover {
   color: gold;
+}
+.ctm_shadow .Polaris-ShadowBevel {
+  box-shadow: rgba(74, 74, 74, 1) 0px 1px 4px,
+    rgb(74, 74, 74, 1) 0px 0px 0px 3px;
+}
+.ctm_button button {
+  width: 60px !important;
+}
+.Polaris-Banner {
+  background-color: var(--p-color-bg-surface) !important;
+}
+.PlanPro .Polaris-InlineStack,
+.Polaris-Text--headingSm {
+  width: 100% !important;
+}
+
+.pixelchange div {
+  width: 100%;
 }

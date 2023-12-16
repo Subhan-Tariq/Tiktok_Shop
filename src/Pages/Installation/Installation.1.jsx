@@ -9,34 +9,22 @@ import {
   ButtonGroup,
   Button,
   Popover,
-  ActionList,
   Card,
-  Layout,
 } from "@shopify/polaris";
 import { Checkbox, Divider } from "@shopify/polaris";
-
+import { MinusMajor } from "@shopify/polaris-icons";
 import React from "react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { TickSmallMinor, TickMinor } from "@shopify/polaris-icons";
 import Setting from "../Setting/Setting";
 import Plans from "../Plan/Plan";
 import ConnectMarket from "../../Components/ConnectMarket/ConnectMarket";
-import { CircleRightMajor } from "@shopify/polaris-icons";
 
-function Installation() {
-  const [nxtbtn, setnxtbtn] = useState(true);
-
+export function Installation() {
   // Tiktok Pixel Checked
   const handleCardPixelClick = () => {
     setCheckedPixel(!checkedPixel); // Toggle the checked state on card click
     setCheckedShop(false); // Toggle the checked state on card click
-    setnxtbtn(false);
-
-    // if (nxtbtn == false) {
-    //   setnxtbtn(false);
-    // }
-
-    console.log(checkedPixel, "dsf", checkedShop);
   };
   const [checkedPixel, setCheckedPixel] = useState(false);
   const handleChangePixel = useCallback(
@@ -47,10 +35,6 @@ function Installation() {
   const handleCardShopClick = () => {
     setCheckedShop(!checkedShop); // Toggle the checked state on card click
     setCheckedPixel(false); // Toggle the checked state on card click
-    setnxtbtn(false);
-    // if (nxtbtn == false) {
-    //   setnxtbtn(false);
-    // }
   };
   const [checkedShop, setCheckedShop] = useState(false);
   const handleChangeShop = useCallback(
@@ -67,10 +51,6 @@ function Installation() {
     if (checkedPixel === true) {
       setstep(5);
     } else {
-      if (checkedPixel == false && checkedShop == false) {
-        setnxtbtn(true);
-        return;
-      }
       setstep(step + 1);
     }
   };
@@ -182,11 +162,8 @@ function Installation() {
                   </div>
                 </Card>
               </div>
-              <span className="Polaris-Icon Polaris-Icon--toneBase Polaris-Icon--applyColor">
-                <span>
-                  <strong style={{ color: "#4a4a4a" }}> OR</strong>
-                </span>
-              </span>
+              <Icon source={MinusMajor} tone="base" />
+              <span>OR</span>
               <div
                 onClick={handleCardShopClick}
                 style={{ width: "45%", height: "100%" }}
@@ -201,7 +178,6 @@ function Installation() {
                       <Text variant="heading2xl">TikTok Shop</Text>
                     </div>
                   </div>
-
                   <div className="">
                     <div
                       className="marginTop20"
@@ -260,14 +236,12 @@ function Installation() {
               </div>
             </InlineStack>
           </div>
-          <div className="marginTop80"></div>
-          <Box as="div" className=" dis-center  ">
+          <div className="marginTop20"></div>
+          <Box as="div" className=" dis-center">
             <ButtonGroup>
-              <Button disabled={nxtbtn} onClick={nextStep}>
-                <span style={{ display: "flex" }}>
-                  Get Started
-                  <Icon source={CircleRightMajor}></Icon>
-                </span>
+              <Button variant="primary" size="large" onClick={nextStep}>
+                {" "}
+                Next
               </Button>
             </ButtonGroup>
           </Box>
@@ -339,38 +313,33 @@ function Installation() {
             </Grid>
           </Box>
           <Box as="div" className="marginTop50 dis-Last">
-            <ButtonGroup>
-              <Button size="large" onClick={prevStep}>
-                Previous
-              </Button>
-              <Popover
-                active={popoverActive}
-                activator={activator}
-                autofocusTarget="first-node"
-                onClose={togglePopoverActive}
-                preferredPosition={"above"}>
-                <Box as="div" className="popover-box">
-                  <Text variant="heading2xl" as="h3">
-                    Select your TikTok Shop store region
-                  </Text>
-                  <Text>
-                    This is just to ensure we meet regional data regulations.
-                  </Text>
-                  <ul className="listStyle connect-List">
-                    <li className="connect-li">
-                      <Button size="large" fullWidth onClick={nextStep}>
-                        United States
-                      </Button>
-                    </li>
-                    <li className="connect-li">
-                      <Button size="large" fullWidth onClick={nextStep}>
-                        Outside the US.
-                      </Button>
-                    </li>
-                  </ul>
-                </Box>
-              </Popover>
-            </ButtonGroup>
+            <Popover
+              active={popoverActive}
+              activator={activator}
+              autofocusTarget="first-node"
+              onClose={togglePopoverActive}
+              preferredPosition={"above"}>
+              <Box as="div" className="popover-box">
+                <Text variant="heading2xl" as="h3">
+                  Select your TikTok Shop store region
+                </Text>
+                <Text>
+                  This is just to ensure we meet regional data regulations.
+                </Text>
+                <ul className="listStyle connect-List">
+                  <li className="connect-li">
+                    <Button size="large" fullWidth onClick={nextStep}>
+                      United States
+                    </Button>
+                  </li>
+                  <li className="connect-li">
+                    <Button size="large" fullWidth onClick={nextStep}>
+                      Outside the US.
+                    </Button>
+                  </li>
+                </ul>
+              </Box>
+            </Popover>
           </Box>
         </>
       );
@@ -475,42 +444,39 @@ function Installation() {
     default:
       return (
         <>
-          {checkedPixel ? null : (
-            <div className="marginTop50">
-              <InlineStack align="center">
-                <div className="text-circle step-active">
-                  <Text>
-                    <Icon source={TickMinor}></Icon>
-                  </Text>
-                </div>
-                <div className="divider-wrapper">
-                  <hr className="divider-line "></hr>
-                </div>
-                <div className="text-circle step-active">
-                  <Text>
-                    <Icon source={TickMinor}></Icon>
-                  </Text>
-                </div>
-                <div className="divider-wrapper">
-                  <hr className="divider-line"></hr>
-                </div>
-                <div className="text-circle step-active">
-                  <Text>
-                    <Icon source={TickMinor}></Icon>
-                  </Text>
-                </div>
-                <div className="divider-wrapper">
-                  <hr className="divider-line"></hr>
-                </div>
-                <div className="text-circle step-active">
-                  <Text>
-                    <Icon source={TickMinor}></Icon>
-                  </Text>
-                </div>
-              </InlineStack>
-            </div>
-          )}
-
+          <div className="marginTop50">
+            <InlineStack align="center">
+              <div className="text-circle step-active">
+                <Text>
+                  <Icon source={TickMinor}></Icon>
+                </Text>
+              </div>
+              <div className="divider-wrapper">
+                <hr className="divider-line "></hr>
+              </div>
+              <div className="text-circle step-active">
+                <Text>
+                  <Icon source={TickMinor}></Icon>
+                </Text>
+              </div>
+              <div className="divider-wrapper">
+                <hr className="divider-line"></hr>
+              </div>
+              <div className="text-circle step-active">
+                <Text>
+                  <Icon source={TickMinor}></Icon>
+                </Text>
+              </div>
+              <div className="divider-wrapper">
+                <hr className="divider-line"></hr>
+              </div>
+              <div className="text-circle step-active">
+                <Text>
+                  <Icon source={TickMinor}></Icon>
+                </Text>
+              </div>
+            </InlineStack>
+          </div>
           <Plans />
           <Box as="div" className="marginTop50 dis-center">
             <ButtonGroup>
@@ -524,4 +490,3 @@ function Installation() {
       );
   }
 }
-export default Installation;

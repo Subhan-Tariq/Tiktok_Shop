@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   Page,
   InlineGrid,
@@ -18,6 +20,7 @@ import {
   ContextualSaveBar,
   Link,
 } from "@shopify/polaris";
+import { Banner, List } from "@shopify/polaris";
 import React, { useState, useCallback, useMemo } from "react";
 import { ViewMajor } from "@shopify/polaris-icons";
 import CircularProgressBar from "../../Components/ProgressBar/ProgressBar";
@@ -236,8 +239,7 @@ function EditProduct() {
               key={option}
               value={option}
               selected={selectedTags.includes(option)}
-              accessibilityLabel={option}
-            >
+              accessibilityLabel={option}>
               <Listbox.TextOption selected={selectedTags.includes(option)}>
                 {formatOptionText(option)}
               </Listbox.TextOption>
@@ -264,8 +266,7 @@ function EditProduct() {
       <Listbox
         autoSelection={AutoSelection.None}
         onSelect={updateSelection}
-        onActiveOptionChange={handleActiveOptionChange}
-      >
+        onActiveOptionChange={handleActiveOptionChange}>
         {actionMarkup}
         {optionMarkup}
       </Listbox>
@@ -322,9 +323,33 @@ function EditProduct() {
           content: "View On Shopify",
           onAction: () => alert("View on your store action"),
         },
-      ]}
-    >
-      <div className="FullBox">
+      ]}>
+      <Banner
+        title="Some of your product variants are missing weights"
+        tone="warning"
+        action={{ content: "Edit variant weights", url: "" }}
+        secondaryAction={{ content: "Learn more", url: "" }}
+        onDismiss={() => {}}>
+        <List>
+          <List.Item>
+            The name of the city you’re shipping to has characters that aren’t
+            allowed. City name can only include spaces and hyphens.
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            The name of the city you’re shipping to has characters that aren’t
+            allowed. City name can only include spaces and hyphens.
+          </List.Item>
+        </List>
+        <List>
+          <List.Item>
+            The name of the city you’re shipping to has characters that aren’t
+            allowed. City name can only include spaces and hyphens.
+          </List.Item>
+        </List>
+      </Banner>
+      <div className="FullBox marginTop20">
         <div className="colOne">
           <Box as="div" className="firstCol">
             <Card>
@@ -425,8 +450,7 @@ function EditProduct() {
                               verticalContent={verticalContentMarkup}
                               onChange={setValue}
                             />
-                          }
-                        >
+                          }>
                           {listboxMarkup}
                         </Combobox>
                       </FormLayout.Group>
@@ -451,8 +475,7 @@ function EditProduct() {
                     <InlineGrid
                       columns={2}
                       gap={200}
-                      style={{ position: "relative" }}
-                    >
+                      style={{ position: "relative" }}>
                       <UploadImage pic={"src/Images/img1.webp"} />
                       <div>
                         <InlineGrid columns={2} gap={200}>
@@ -566,8 +589,7 @@ function EditProduct() {
                   width: 86,
                   contextualSaveBarSource:
                     "https://cdn.shopify.com/s/files/1/2376/3301/files/Shopify_Secondary_Inverted.png",
-                }}
-              >
+                }}>
                 <ContextualSaveBar
                   message="Unsaved changes"
                   saveAction={{

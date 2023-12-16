@@ -1,51 +1,26 @@
-/** @format */
-
 import React, { useState, useCallback } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  CashDollarMajor,
-  AnalyticsMajor,
-  CheckoutMajor,
-  SettingsMajor,
-  PhoneMajor,
-  TiktokMinor,
-  StoreMajor,
-  SimplifyMajor,
-} from "@shopify/polaris-icons";
-import {
-  Icon,
-  Popover,
-  ActionList,
-  Divider,
-  InlineStack,
-  ButtonGroup,
-  Button,
-} from "@shopify/polaris";
+import { CashDollarMajor,AnalyticsMajor ,CheckoutMajor,SettingsMajor,PhoneMajor,TiktokMinor,StoreMajor,SimplifyMajor} from "@shopify/polaris-icons";
+import { Icon, Popover, ActionList, Divider, InlineStack, ButtonGroup,Button } from "@shopify/polaris";
 
 export default function PixelHeader() {
   const CurrentURl = window.location.href;
-  const Link = [
-    "http://localhost:5173/pixel",
-    "http://localhost:5173/pixel/Tiktok",
-    "http://localhost:5173/pixel/intrestfinder",
-    "http://localhost:5173/pixel/help",
-    "http://localhost:5173/pixel/faq",
-  ];
-
+  const Link = ['http://localhost:5173/pixel','http://localhost:5173/pixel/Tiktok','http://localhost:5173/pixel/intrestfinder','http://localhost:5173/pixel/help','http://localhost:5173/pixel/faq']
+ 
   const [activeItem, setActiveItem] = useState(
     function findIndexOfCurrentURL() {
       for (let i = 0; i < Link.length; i++) {
         if (Link[i] === CurrentURl) {
-          return i;
+          return i; 
         }
       }
-      return 0; //
+      return 0; // 
     }
   );
   const handleItemClick = (index) => {
     setActiveItem(index);
   };
-  // last button
+  // last button  
   const [active, setActive] = React.useState(null);
 
   const toggleActive = (id) => () => {
@@ -53,50 +28,64 @@ export default function PixelHeader() {
   };
 
   const archiveItems = [
-    <InlineStack className="navLink" gap={200}>
-      <Icon source={AnalyticsMajor} tone="base" />
-      Analytics
-    </InlineStack>,
-    <InlineStack className="navLink" gap={200}>
-      <Icon source={TiktokMinor} tone="base" />
-      Pixels
-    </InlineStack>,
-    <InlineStack className="navLink" gap={200}>
-      <Icon source={CashDollarMajor} tone="base" />
+
+      <InlineStack className="navLink" gap={200}>
+      <Icon
+        source={AnalyticsMajor}
+        tone="base"
+      />
+        Analytics
+      </InlineStack>,
+      <InlineStack className="navLink" gap={200}>
+        <Icon
+          source={TiktokMinor}
+          tone="base"
+        />
+        Pixels
+      </InlineStack>,
+      <InlineStack className="navLink" gap={200}>
+      <Icon
+        source={CashDollarMajor}
+        tone="base"
+      />
       Intrest Finder
     </InlineStack>,
-    <InlineStack className="navLink" gap={200}>
-      <Icon source={PhoneMajor} tone="base" />
+      <InlineStack className="navLink" gap={200}>
+        <Icon
+          source={PhoneMajor}
+          tone="base"
+        />
       Help Center
-    </InlineStack>,
-
+      </InlineStack>,
+    
     <InlineStack className="navLink" gap={200}>
-      <Icon source={CashDollarMajor} tone="base" />
-      Faq
-    </InlineStack>,
+    <Icon
+      source={CashDollarMajor}
+      tone="base"
+    />
+    Faq
+  </InlineStack>
   ];
+ 
 
   return (
     <>
-      <div className="inline">
-        <ul className="archive-navbar">
-          {archiveItems.map((item, index) => (
-            <NavLink to={Link[index]} passhref="true" key={index}>
-              <li
-                className={`archive-item ${
-                  activeItem === index || Link[index] === CurrentURl
-                    ? "active"
-                    : ""
-                }`}
-                onClick={() => handleItemClick(index)}>
-                {item}
-              </li>
-            </NavLink>
-          ))}
-        </ul>
-      </div>
+    <div className="inline">
+      <ul className="archive-navbar">
+        {archiveItems.map((item, index) => (
+          <NavLink to={Link[index]} passhref="true" key={index}>
+               <li
+            className={`archive-item ${activeItem === index  || Link[index] === CurrentURl ? "active" : ""}`}
+            onClick={() => handleItemClick(index)}
+          >
+            {item}
+          </li>
+          </NavLink>
+        ))}
+      </ul>
+        </div>
       <div className="my-2">
-        <Divider borderColor="border" />
+        <Divider borderColor="border"/>
       </div>
     </>
   );
