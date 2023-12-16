@@ -1,59 +1,60 @@
-.mTopBott20{
-    margin-top: 10px;
-    margin-bottom: 10px;
+/** @format */
+
+.mTopBott20 {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-.inline{
-    display:flex;
-    justify-content: space-between;
+.inline {
+  display: flex;
+  justify-content: space-between;
 }
-.dis-Last{
-    display: flex;
-    justify-content: end;
+.dis-Last {
+  display: flex;
+  justify-content: end;
 }
 
-.listStyle{
-    list-style: none;
-    text-align: start;
-  }
-  .listItem {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  .listItem .Polaris-Icon{
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .order-stats{
-    padding-right: 20px;
-    border-right: 2px solid rgba(0, 0, 0, 0.27);
-    text-align: center;
-  }
-  .order-stats:last-child{
-    border-right: unset;
-  }
-  .marginTop20{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .margtop10{
-    margin-top:10px;
-  }
-  .margBottom10{
-    margin-bottom:10px;
-  }
+.listStyle {
+  list-style: none;
+  text-align: start;
+}
+.listItem {
+  display: flex;
+  margin-bottom: 20px;
+}
+.listItem .Polaris-Icon {
+  display: flex;
+  justify-content: flex-start;
+}
 
+.order-stats {
+  padding-right: 20px;
+  border-right: 2px solid rgba(0, 0, 0, 0.27);
+  text-align: center;
+}
+.order-stats:last-child {
+  border-right: unset;
+}
+.marginTop20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.margtop10 {
+  margin-top: 10px;
+}
+.margBottom10 {
+  margin-bottom: 10px;
+}
 
-  .divider{
-    color: aquamarine;
-    height:2px;
-    width:200px;
-  }
+.divider {
+  color: aquamarine;
+  height: 2px;
+  width: 200px;
+}
 
-  .margintop30{
-    margin-top: 50px;
-  }
-  /* ArchiveNavbar.css */
+.margintop30 {
+  margin-top: 50px;
+}
+/* ArchiveNavbar.css */
 .archive-navbar {
   list-style: none;
   display: flex;
@@ -61,11 +62,11 @@
   background-color: #f0f0f0;
   text-decoration: none;
 }
-.archive-navbar a{
+.archive-navbar a {
   text-decoration: none;
   background-color: #f0f0f0;
   color: rgb(77, 77, 77);
-} 
+}
 
 .archive-item {
   padding: 6px 10px;
@@ -73,12 +74,12 @@
   transition: background-color 0.3s;
   text-decoration: none !important;
 }
-.archive-item a{
-text-decoration: none;
-color:rgb(77, 77, 77);
+.archive-item a {
+  text-decoration: none;
+  color: rgb(77, 77, 77);
 }
 
-.archive-item a .Polaris-Icon{
+.archive-item a .Polaris-Icon {
   display: flex;
 }
 .archive-item.active {
@@ -93,15 +94,14 @@ color:rgb(77, 77, 77);
   background-color: rgb(233, 233, 233);
 }
 
-.text-bold{
+.text-bold {
   font-weight: 500;
 }
-
 
 /* accordin style */
 .accordion {
   /* border: 1px solid #ccc; */
-  border-bottom: 1px solid #cccccc67; ;
+  border-bottom: 1px solid #cccccc67;
   margin: 10px;
   border-radius: 4px;
   box-shadow: #ccc;
@@ -139,94 +139,88 @@ color:rgb(77, 77, 77);
 }
 /* Accordin style end */
 
-
 .Polaris-MediaCard {
   flex-direction: row-reverse !important;
 }
-.Polaris-MediaCard__MediaContainer{
+.Polaris-MediaCard__MediaContainer {
   border-radius: unset !important;
 }
 @media only screen and (max-width: 600px) {
- .inline{
-  flex-direction: column;
- }
+  .inline {
+    flex-direction: column;
+  }
 }
 
-
 /*  */
-.dis-center{
+.dis-center {
   display: flex;
   justify-content: center;
 }
-.flex-inline{
+.flex-inline {
   display: flex;
   justify-content: flex-start;
 }
 
-
 /* Multi step form header */
-.text-circle{
-  width:20px;
+.text-circle {
+  width: 20px;
   height: 20px;
   background-color: #7e7e7e;
   border: 2px solid #7e7e7e;
-  color: #fff ;
+  color: #fff;
   text-align: center;
   border-radius: 50%;
   padding-bottom: 20px;
 }
-.divider-wrapper{
-  width:22%;
+.divider-wrapper {
+  width: 22%;
   margin-left: 20px;
   margin-right: 20px;
-  
 }
 
-.divider-line{
+.divider-line {
   border: 1px solid #7e7e7e;
   margin-top: 4%;
 }
 
-.step-active{
+.step-active {
   background-color: #fff;
   border: 2px solid #1fa24c;
-  fill: #1fa24c ;
+  fill: #1fa24c;
   padding-bottom: unset;
   /* color:#000 !important; */
 }
 
-
-.plan-Strach{
-display: grid;
-justify-content: stretch;
-/* background-color: #ccc; */
-height:100%;
+.plan-Strach {
+  display: grid;
+  justify-content: stretch;
+  /* background-color: #ccc; */
+  height: 100%;
 }
 
-.step-img{
+.step-img {
   width: 100%;
   height: 100%;
 }
 
-.marginTop{
+.marginTop {
   margin-top: 20px;
 }
-.marginTop50{
+.marginTop50 {
   margin-top: 50px;
 }
 
-
-.connect-List{
+.connect-List {
   padding-right: 30px;
 }
-.connect-li{
+.connect-li {
   margin-bottom: 10px;
 }
-.popover-box{
+.popover-box {
   padding: 20px;
   height: 100%;
 }
-.upload-img{
+.upload-img {
   width: 100%;
   height: 100%;
 }
@@ -236,23 +230,22 @@ html[class~="Polaris-Summer-Editions-2023"] .Polaris-DropZone {
   height: 100%;
 }
 
-.FullBox{
+.FullBox {
   display: flex;
   column-gap: 20px;
 }
-.colOne{
-  width:30%;
+.colOne {
+  width: 30%;
 }
-.firstCol{
+.firstCol {
   position: -webkit-sticky;
   position: sticky;
   top: 30px;
-  align-items:flex-start
+  align-items: flex-start;
 }
-.second-col{
-  width:70%;
+.second-col {
+  width: 70%;
 }
-.start_hover :hover{
-  color:gold;
-
+.start_hover :hover {
+  color: gold;
 }
