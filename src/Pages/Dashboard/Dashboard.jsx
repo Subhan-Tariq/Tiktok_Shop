@@ -54,10 +54,10 @@ export default function Dashboard() {
   ) : (
     <>
       <div className="margtop10">
-        <PlanProgress />
+        <StarRating />
       </div>
       <div className="margtop10">
-        <StarRating />
+        <PlanProgress />
       </div>
       <Page title="Orders" compactTitle primaryAction={<DateRangePicker />}>
         <div className="marginTop20">

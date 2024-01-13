@@ -3,8 +3,15 @@
 import React from "react";
 import {
   Page,
+  InlineStack,
+  Tooltip,
   Card,
+  Filters,
+  ChoiceList,
+  TextField,
+  Checkbox,
   Tabs,
+  Box,
   Badge,
   Icon,
   ButtonGroup,
@@ -12,10 +19,32 @@ import {
 } from "@shopify/polaris";
 import { useState, useCallback } from "react";
 import ProductTable from "../../Components/ProductTable/ProductTable";
-import { RefreshMinor, EditMinor, TiktokMinor } from "@shopify/polaris-icons";
+import {
+  RefreshMinor,
+  EditMinor,
+  TiktokMinor,
+  SearchMajor,
+  FilterMajor,
+} from "@shopify/polaris-icons";
 import { useNavigate } from "react-router-dom";
+import CtmTable from "../../Components/Custom/CtmTable";
 
 export default function Products() {
+  const [showSearch, setShowSearch] = useState(false);
+  const OpenSearch = () => {
+    setShowSearch(!showSearch);
+  };
+  const [checked, setChecked] = useState(false);
+  // const handleChange = useCallback((newChecked) => setChecked(newChecked), []);
+  const [checkedItems, setCheckedItems] = useState({});
+
+  const handleChange = (id) => {
+    setCheckedItems((prevCheckedItems) => ({
+      ...prevCheckedItems,
+      [id]: !prevCheckedItems[id],
+    }));
+    console.log(id);
+  };
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -23,15 +52,7 @@ export default function Products() {
     navigate("/editproduct");
   };
   // Tabs
-  const [itemStrings, setItemStrings] = useState([
-    "All",
-    "Not Uploaded",
-    "In Progress",
-    "Live",
-    "Reviewing",
-    "Failed",
-    "Inactive",
-  ]);
+  const [itemStrings, setItemStrings] = useState(["All", "Not Uploaded"]);
 
   const badge = ["38", "10", "20", "40", "0", "10", "0"];
   const tabs = itemStrings.map((item, index) => ({
@@ -42,18 +63,28 @@ export default function Products() {
     id: `${item}-${index}`,
     isLocked: index === 0,
   }));
-
   // Tabs
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(null);
+  const [resetSelect, setResetSelect] = useState(false);
 
-  const handleTabChange = useCallback(
-    (selectedTabIndex) => setSelectedTab(selectedTabIndex),
-    []
-  );
-
+  const handleTabChange = useCallback((tabIndex) => {
+    setSelectedTab(tabIndex);
+    setResetSelect((prevState) => !prevState);
+  }, []);
+  const items = [
+    { name: "Item 1", price: "$10" },
+    { name: "Item 2", price: "$20" },
+    // Add more items as needed
+  ];
   const Allorders = [
     {
       id: "1",
+      check: (
+        <Checkbox
+          checked={checkedItems["1"] || false}
+          onChange={() => handleChange("1")}
+        />
+      ),
       ProImage: (
         <img
           src="src/Images/download.webp"
@@ -84,6 +115,12 @@ export default function Products() {
     },
     {
       id: "2",
+      check: (
+        <Checkbox
+          checked={checkedItems["2"] || false}
+          onChange={() => handleChange("2")}
+        />
+      ),
       ProImage: (
         <img
           src="src/Images/download.webp"
@@ -113,6 +150,12 @@ export default function Products() {
     },
     {
       id: "3",
+      check: (
+        <Checkbox
+          checked={checkedItems["3"] || false}
+          onChange={() => handleChange("3")}
+        />
+      ),
       ProImage: (
         <img
           src="src/Images/download.webp"
@@ -149,24 +192,31 @@ export default function Products() {
   ) : (
     <Page title="Product Page">
       <Card>
-        <Tabs tabs={tabs} selected={selectedTab} onSelect={handleTabChange}>
-          {selectedTab == 0 ? (
-            <ProductTable orders={Allorders} />
-          ) : selectedTab == 1 ? (
-            <ProductTable orders={Allorders} />
-          ) : selectedTab == 2 ? (
-            <ProductTable orders={Allorders} />
-          ) : selectedTab == 3 ? (
-            <ProductTable orders={Allorders} />
-          ) : selectedTab == 4 ? (
-            <ProductTable orders={Allorders} />
-          ) : selectedTab == 5 ? (
-            <ProductTable orders={Allorders} />
-          ) : (
-            <ProductTable orders={Allorders} />
-          )}
-        </Tabs>
+        <Box style={{ display: "flex", justifyContent: "space-between" }}>
+          <Box>
+            <Tabs
+              tabs={tabs}
+              selected={selectedTab}
+              onSelect={handleTabChange}></Tabs>
+          </Box>
+          <Box>
+            <Tooltip content="Search and Filter">
+              <Button onClick={OpenSearch}>
+                <InlineStack>
+                  <Icon source={SearchMajor} tone="base" />
+                  <Icon source={FilterMajor} tone="base" />
+                </InlineStack>
+              </Button>
+            </Tooltip>
+          </Box>
+        </Box>
+        <ProductTable
+          reset={resetSelect}
+          open={showSearch}
+          orders={Allorders}
+        />
       </Card>
+      <CtmTable items={items} />
     </Page>
   );
 }

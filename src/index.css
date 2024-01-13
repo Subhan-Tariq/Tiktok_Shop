@@ -277,3 +277,11 @@
 .pixelchange div {
   width: 100%;
 }
+
+.hide-scroll .Polaris-TextField__VerticalContent {
+  overflow: auto !important;
+}
+
+.warning .Polaris-ProgressBar__Indicator {
+  background-color: var(--p-color-bg-fill-warning) !important;
+}

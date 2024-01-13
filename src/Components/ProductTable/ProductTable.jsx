@@ -18,16 +18,20 @@ import {
   Card,
   Grid,
   ButtonGroup,
+  Badge,
   Select,
   Icon,
   InlineStack,
   Tooltip,
 } from "@shopify/polaris";
 import { InfoMinor } from "@shopify/polaris-icons";
+import { Checkbox } from "@shopify/polaris";
+
 import { useState, useCallback, useEffect, createContext } from "react";
 import {
   RefreshMinor,
   EditMinor,
+  CancelMinor,
   TiktokMinor,
   SearchMajor,
   FilterMajor,
@@ -37,7 +41,7 @@ const ParentContext = createContext();
 import { useNavigate } from "react-router-dom";
 import CtmSelectCategory from "../SelectCateories/CtmSelectCategory";
 
-function ProductTable({ orders }) {
+function ProductTable({ orders, open, reset }) {
   // Filter start
   const [availability, setAvailability] = useState([]);
   const [productType, setProductType] = useState([]);
@@ -167,8 +171,22 @@ function ProductTable({ orders }) {
       onAction: () => LinktoTiktok(),
     },
   ];
+
+  const [checked, setChecked] = useState(false);
+  const handleChange = useCallback((newChecked) => setChecked(newChecked), []);
+
   const [items, setItems] = useState([
-    { id: "1", title: "ProImage", value: "Product Image", checked: true },
+    {
+      id: "0",
+      title: <Checkbox checked={checked} onChange={handleChange} />,
+      checked: true,
+    },
+    {
+      id: "1",
+      title: "ProImage",
+      value: "Product Image",
+      checked: true,
+    },
     { id: "2", title: "ProName", value: "Product Name", checked: true },
     { id: "3", title: "ProType", value: "Product Type", checked: true },
     { id: "4", title: "Vendor", value: "Vendor", checked: true },
@@ -181,8 +199,26 @@ function ProductTable({ orders }) {
   const [selected, setSelected] = useState(0);
   const { mode, setMode } = useSetIndexFiltersMode();
 
-  const { selectedResources, allResourcesSelected, handleSelectionChange } =
-    useIndexResourceState(orders);
+  const {
+    selectedResources,
+    allResourcesSelected,
+    handleSelectionChange,
+    clearSelection,
+    removeSelectedResources,
+  } = useIndexResourceState(orders);
+
+  // Child component
+  const resetSelection = useCallback(() => {
+    removeSelectedResources([]);
+    clearSelection();
+  }, [removeSelectedResources, clearSelection]);
+
+  // Use useEffect to run the child function when the reset prop changes
+  useEffect(() => {
+    // Run the child function with the current value
+    resetSelection();
+  }, [reset]); // Only run the effect if reset changes
+
   //
   // filter out the heading of bydefault
   const filteredArray = items
@@ -220,44 +256,61 @@ function ProductTable({ orders }) {
       <IndexTable.Row
         id={row.id}
         key={row.id}
-        selected={selectedResources.includes(row.id)}
+        selected={false}
         position={index}>
-        {filteredArray.map((item, id) => {
-          return (
-            <IndexTable.Cell key={id}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "relative",
-                }}>
-                <Text variant="bodyMd" fontWeight="bold" as="span">
-                  {/* <SkeletonBodyText lines={1}/> */}
-                  {item.title === "ProName"
-                    ? row[item.title].length > 15
-                      ? row[item.title].slice(0, 20) + "...."
-                      : row[item.title]
-                    : row[item.title]}
-                </Text>
-                {item.title === "ProName" ? (
-                  <span
-                    style={{
-                      color: "red",
-                      position: "absolute",
-                      fontSize: "12px",
-                      display: "flex",
-                      top: "19px",
-                    }}>
-                    <Icon source={InfoMinor} tone="critical" />
-                    <p style={{ fontWeight: "500" }}>
-                      {`Edit product to fix errors and sync it to Tiktok Shop`}
-                    </p>
-                  </span>
-                ) : null}
-              </div>
-            </IndexTable.Cell>
-          );
-        })}
+        <IndexTable.Cell key={`${row.id}-check`}>{row.check}</IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-img`}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+            }}>
+            <Text variant="bodyMd" fontWeight="bold" as="span">
+              {/* <SkeletonBodyText lines={1}/> */}
+              {row.ProImage}
+            </Text>
+          </div>
+        </IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-name`}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+            }}>
+            <Text variant="bodyMd" fontWeight="bold" as="span">
+              {row.ProName.length > 15
+                ? row.ProName.slice(0, 20) + "...."
+                : row.ProName}
+            </Text>
+            <span
+              style={{
+                color: "red",
+                position: "absolute",
+                fontSize: "12px",
+                display: "flex",
+                top: "19px",
+              }}>
+              <Icon source={InfoMinor} tone="critical" />
+              <p style={{ fontWeight: "500" }}>
+                {`Edit product to fix errors and sync it to Tiktok Shop`}
+              </p>
+            </span>
+          </div>
+        </IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-type`}>{row.ProType}</IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-vendor`}>{row.Vendor}</IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-variations`}>
+          {row.Variations}
+        </IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-shopify-status`}>
+          {row.ShopifyStatus}
+        </IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-tt-status`}>
+          {row.TikTokStatus}
+        </IndexTable.Cell>
+        <IndexTable.Cell key={`${row.id}-action`}>{row.Action}</IndexTable.Cell>
       </IndexTable.Row>
     ));
     setRowMarkup(newRows);
@@ -281,7 +334,12 @@ function ProductTable({ orders }) {
   };
 
   // filter option show and hide
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(open);
+
+  useEffect(() => {
+    setShowFilter(open);
+  }, [open]);
+
   const FilterHandle = () => {
     setShowFilter(!showFilter);
   };
@@ -322,6 +380,7 @@ function ProductTable({ orders }) {
 
   return (
     <Box>
+      <Checkbox checked={checked} onChange={handleChange} />
       {ShowSyncCard ? (
         <>
           <Card>
@@ -375,8 +434,27 @@ function ProductTable({ orders }) {
       ) : (
         <div className="mTopBott20">
           <Grid>
-            <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 4, lg: 8, xl: 8 }}>
+            <Grid.Cell columnSpan={{ xs: 6, sm: 4, md: 4, lg: 12, xl: 12 }}>
               {showFilter === true ? (
+                <Box>
+                  <Filters
+                    queryValue={queryValue}
+                    queryPlaceholder="Search items"
+                    // hideQueryField
+                    filters={filters}
+                    appliedFilters={appliedFilters}
+                    onQueryChange={handleFiltersQueryChange}
+                    onQueryClear={handleQueryValueRemove}
+                    onClearAll={handleFiltersClearAll}>
+                    <div style={{ paddingLeft: "8px" }}>
+                      <Button size="small" onClick={FilterHandle}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </Filters>
+                </Box>
+              ) : null}
+              {/* {showFilter === true ? (
                 <Filters
                   queryValue={queryValue}
                   queryPlaceholder="Search items"
@@ -396,9 +474,9 @@ function ProductTable({ orders }) {
                     </InlineStack>
                   </Button>
                 </Tooltip>
-              )}
+              )} */}
             </Grid.Cell>
-            <Grid.Cell columnSpan={{ xs: 6, sm: 2, md: 2, lg: 4, xl: 4 }}>
+            {/* <Grid.Cell columnSpan={{ xs: 6, sm: 2, md: 2, lg: 4, xl: 4 }}>
               <div className="dis-Last">
                 <ButtonGroup>
                   <ParentContext.Provider
@@ -413,11 +491,12 @@ function ProductTable({ orders }) {
                   </Button>
                 </ButtonGroup>
               </div>
-            </Grid.Cell>
+            </Grid.Cell> */}
           </Grid>
           <Box>
             <div className="mTopBott20">
               <IndexTable
+                selectable={false}
                 resourceName={resourceName}
                 itemCount={orders.length}
                 selectedItemsCount={
@@ -426,7 +505,7 @@ function ProductTable({ orders }) {
                     : selectedResources.length
                 }
                 onSelectionChange={handleSelectionChange}
-                headings={filteredArray}
+                headings={items}
                 pagination={true}
                 promotedBulkActions={promotedBulkActions}>
                 {rowMarkup}

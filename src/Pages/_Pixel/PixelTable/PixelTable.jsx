@@ -12,6 +12,7 @@ import {
   InlineStack,
   Link,
   Text,
+  Collapsible,
   Icon,
   TextField,
   Button,
@@ -19,80 +20,36 @@ import {
   Modal,
   FormLayout,
   Select,
+  Tabs,
+  Layout,
+  ChoiceList,
+  Box,
+  Tooltip,
 } from "@shopify/polaris";
-import React from "react";
+import { Tag, Autocomplete } from "@shopify/polaris";
+import React, { useState } from "react";
+import { useCallback, useMemo } from "react";
 import {
   TickMinor,
   MobileCancelMajor,
+  StoreMajor,
   EditMajor,
+  SimplifyMajor,
   DeleteMinor,
   MobileBackArrowMajor,
 } from "@shopify/polaris-icons";
+import {
+  QuestionMarkInverseMajor,
+  MobilePlusMajor,
+} from "@shopify/polaris-icons";
 import { ChevronDownMinor } from "@shopify/polaris-icons";
 
-import { useState, useCallback } from "react";
-
 function PixelTable() {
+  const [selectedOptions, setSelectedOptions] = useState(["rustic"]);
+  const [inputValue, setInputValue] = useState("");
   const [active, setActive] = useState(false);
-
-  const toggleModal = useCallback(() => setActive((active) => !active), []);
   const [show, setShow] = useState(false);
-  const showForm = useCallback(() => setShow((show) => !show), []);
-
-  // const activator = <Button onClick={toggleModal}>Open</Button>;
   const [value, setValue] = useState("Search Here");
-
-  const handleChange = useCallback((newValue) => setValue(newValue), []);
-  const rows = [
-    [
-      <Badge>Active</Badge>,
-      "test",
-      "798798",
-      "enteir store",
-      <Icon source={MobileCancelMajor} />,
-      <Icon source={TickMinor} />,
-      <InlineStack gap={200}>
-        <Link url="/" passHref removeUnderline={true}>
-          <Button icon={EditMajor}>Edit</Button>
-        </Link>
-        <Button onClick={toggleModal} icon={DeleteMinor}>
-          Delete
-        </Button>
-      </InlineStack>,
-    ],
-    [
-      <Badge>Active</Badge>,
-      "test",
-      "798798",
-      "enteir store",
-      <Icon source={MobileCancelMajor} />,
-      <Icon source={TickMinor} />,
-      <InlineStack gap={200}>
-        <Link url="/" passHref removeUnderline={true}>
-          <Button icon={EditMajor}>Edit</Button>
-        </Link>
-        <Button onClick={toggleModal} icon={DeleteMinor}>
-          Delete
-        </Button>
-      </InlineStack>,
-    ],
-    [
-      <Badge>Active</Badge>,
-      "test",
-      "798798",
-      "enteir store",
-      <Icon source={MobileCancelMajor} />,
-      <Icon source={TickMinor} />,
-      <InlineStack gap={200}>
-        <Link url="/" passHref removeUnderline={true}>
-          <Button icon={EditMajor}>Edit</Button>
-        </Link>
-        <Button onClick={toggleModal} icon={DeleteMinor}>
-          Delete
-        </Button>
-      </InlineStack>,
-    ],
-  ];
   // facebook pixel name  value
   const [fbPixelName, SetfbPixelName] = useState("");
 
@@ -103,6 +60,104 @@ function PixelTable() {
   const handleFbIdChange = useCallback((value) => SetfbPixelId(value), []);
   // facebook Access Token
   const [TokenValue, setTokenValue] = useState("");
+  const [SelectCollection, setSelectCollection] = useState("Entire Store");
+  const [selected, setSelected] = useState("Entire Store");
+  const [EventCode, setEventCode] = useState("");
+  const [SourceValue, setSourceValue] = useState("");
+  const [MediumValue, setMediumValue] = useState("");
+  const [CampaignValue, setCampaignValue] = useState("");
+  const deselectedOptions = useMemo(
+    () => [
+      { value: "rustic", label: "Rustic" },
+      { value: "antique", label: "Antique" },
+      { value: "vinyl", label: "Vinyl" },
+      { value: "vintage", label: "Vintage" },
+      { value: "refurbished", label: "Refurbished" },
+    ],
+    []
+  );
+  const [isFirstButtonActive, setIsFirstButtonActive] = useState(true);
+
+  const handleFirstButtonClick = useCallback(() => {
+    if (isFirstButtonActive) return;
+    setIsFirstButtonActive(true);
+  }, [isFirstButtonActive]);
+
+  const handleSecondButtonClick = useCallback(() => {
+    if (!isFirstButtonActive) return;
+    setIsFirstButtonActive(false);
+  }, [isFirstButtonActive]);
+  const [options, setOptions] = useState(deselectedOptions);
+
+  const updateText = useCallback(
+    (value) => {
+      setInputValue(value);
+
+      if (value === "") {
+        setOptions(deselectedOptions);
+        return;
+      }
+
+      const filterRegex = new RegExp(value, "i");
+      const resultOptions = deselectedOptions.filter((option) =>
+        option.label.match(filterRegex)
+      );
+
+      setOptions(resultOptions);
+    },
+    [deselectedOptions]
+  );
+
+  const removeTag = useCallback(
+    (tag) => () => {
+      const options = [...selectedOptions];
+      options.splice(options.indexOf(tag), 1);
+      setSelectedOptions(options);
+    },
+    [selectedOptions]
+  );
+
+  const verticalContentMarkup =
+    selectedOptions.length > 0 ? (
+      <InlineStack spacing="extraTight" alignment="center">
+        {selectedOptions.map((option) => {
+          let tagLabel = "";
+          tagLabel = option.replace("_", " ");
+          tagLabel = titleCase(tagLabel);
+          return (
+            <Tag key={`option${option}`} onRemove={removeTag(option)}>
+              {tagLabel}
+            </Tag>
+          );
+        })}
+      </InlineStack>
+    ) : null;
+
+  const textField = (
+    <Autocomplete.TextField
+      onChange={updateText}
+      label={`Select ${selected}`}
+      value={inputValue}
+      placeholder="Vintage, cotton, summer"
+      verticalContent={verticalContentMarkup}
+      autoComplete="off"
+    />
+  );
+  function titleCase(string) {
+    return string
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.replace(word[0], word[0].toUpperCase()))
+      .join("");
+  }
+  // end
+
+  const toggleModal = useCallback(() => setActive((active) => !active), []);
+  const showForm = useCallback(() => setShow((show) => !show), []);
+
+  // const activator = <Button onClick={toggleModal}>Open</Button>;
+
+  const handleChange = useCallback((newValue) => setValue(newValue), []);
 
   const handleTokenValueChange = useCallback(
     (value) => setTokenValue(value),
@@ -153,9 +208,6 @@ function PixelTable() {
   );
   // select Area
 
-  const [SelectCollection, setSelectCollection] = useState("Entire Store");
-  const [selected, setSelected] = useState("Entire Store");
-
   const handlechangesecond = useCallback((value) => {
     setSelected(value[0]);
 
@@ -180,30 +232,154 @@ function PixelTable() {
     { label: "Tags", value: "Tags" },
   ];
   // facebook   Test Event Code
-  const [EventCode, setEventCode] = useState("");
 
   const handleEventCodeChange = useCallback((value) => setEventCode(value), []);
 
   // UTMS parageters
   // Source
-  const [SourceValue, setSourceValue] = useState("");
+
   const handleSourceValueChange = useCallback(
     (value) => setSourceValue(value),
     []
   );
 
   // Medium
-  const [MediumValue, setMediumValue] = useState("");
+
   const handleMediumValueChange = useCallback(
     (value) => setMediumValue(value),
     []
   );
   // Campaign
-  const [CampaignValue, setCampaignValue] = useState("");
+
   const handleCampaignValueChange = useCallback(
     (value) => setCampaignValue(value),
     []
   );
+
+  const [textFieldInlineToken, setTextFieldInlineToken] = useState("");
+  const [showInlineToken, setshowInlineToken] = useState(false);
+
+  const handleTextFieldChangeInlineToken = useCallback(
+    (value) => setTextFieldInlineToken(value),
+    []
+  );
+
+  const rows = [
+    [
+      <ButtonGroup variant="segmented">
+        <Button pressed={isFirstButtonActive} onClick={handleFirstButtonClick}>
+          Off
+        </Button>
+        <Button
+          pressed={!isFirstButtonActive}
+          onClick={handleSecondButtonClick}>
+          On
+        </Button>
+      </ButtonGroup>,
+      "test",
+      "798798",
+      "enteir store",
+      <div>
+        {!showInlineToken ? (
+          <Button
+            onClick={() => setshowInlineToken(true)}
+            ariaControls="basic-collapsible">
+            Setup
+          </Button>
+        ) : (
+          <div
+            style={{
+              position: "absolute",
+              zIndex: 1,
+              width: "45%",
+            }}>
+            <Card padding="100">
+              <TextField
+                fullWidth
+                type="text"
+                value={textFieldInlineToken}
+                onChange={handleTextFieldChangeInlineToken}
+                autoComplete="off"
+                connectedRight={
+                  <InlineStack gap="400">
+                    <Button
+                      onClick={() => setshowInlineToken(false)}
+                      variant="plain">
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={() => setshowInlineToken(false)}
+                      variant="primary">
+                      save
+                    </Button>
+                  </InlineStack>
+                }
+              />
+            </Card>
+          </div>
+        )}
+      </div>,
+      <Icon source={TickMinor} />,
+      <InlineStack gap={200}>
+        <Button onClick={() => setShow(true)} icon={EditMajor}>
+          Edit
+        </Button>
+        <Button onClick={toggleModal} icon={DeleteMinor}>
+          Delete
+        </Button>
+      </InlineStack>,
+    ],
+    [
+      <ButtonGroup variant="segmented">
+        <Button pressed={isFirstButtonActive} onClick={handleFirstButtonClick}>
+          Off
+        </Button>
+        <Button
+          pressed={!isFirstButtonActive}
+          onClick={handleSecondButtonClick}>
+          On
+        </Button>
+      </ButtonGroup>,
+      "test",
+      "798798",
+      "enteir store",
+      <Icon source={MobileCancelMajor} />,
+      <Icon source={TickMinor} />,
+      <InlineStack gap={200}>
+        <Button onClick={() => setShow(true)} icon={EditMajor}>
+          Edit
+        </Button>
+        <Button onClick={toggleModal} icon={DeleteMinor}>
+          Delete
+        </Button>
+      </InlineStack>,
+    ],
+    [
+      <ButtonGroup variant="segmented">
+        <Button pressed={isFirstButtonActive} onClick={handleFirstButtonClick}>
+          Off
+        </Button>
+        <Button
+          pressed={!isFirstButtonActive}
+          onClick={handleSecondButtonClick}>
+          On
+        </Button>
+      </ButtonGroup>,
+      "test",
+      "798798",
+      "enteir store",
+      <Icon source={MobileCancelMajor} />,
+      <Icon source={TickMinor} />,
+      <InlineStack gap={200}>
+        <Button onClick={() => setShow(true)} icon={EditMajor}>
+          Edit
+        </Button>
+        <Button onClick={toggleModal} icon={DeleteMinor}>
+          Delete
+        </Button>
+      </InlineStack>,
+    ],
+  ];
 
   return (
     <>
@@ -266,145 +442,238 @@ function PixelTable() {
           </Modal>
         </>
       ) : (
-        <div className="marginTop20">
-          <div className="dis-last">
-            <Button onClick={showForm} icon={MobileBackArrowMajor}>
-              Back
-            </Button>
-          </div>
-          <Card>
-            <FormLayout>
-              <FormLayout.Group>
-                <TextField
-                  label="Pixel Name"
-                  value={fbPixelName}
-                  type="text"
-                  onChange={handleFbNameChange}
-                  selectTextOnFocus
-                  autoComplete="off"
-                />
-                {selected === "Collections" ? (
-                  <>
-                    <div>
-                      <Text variant="bodyMd" as="p">
-                        Select Collections
-                      </Text>
-                    </div>
+        <Page
+          backAction={{ content: "Settings", onAction: showForm }}
+          title="Create Pixel">
+          <Box>
+            {/* <Card>
+              <FormLayout>
+                <FormLayout.Group>
+                  <TextField
+                    label="Pixel Name"
+                    value={fbPixelName}
+                    type="text"
+                    onChange={handleFbNameChange}
+                    selectTextOnFocus
+                    autoComplete="off"
+                  />
 
-                    <div style={{}}>
-                      <div className="pixelchange" style={{ display: "flex" }}>
-                        <Popover
-                          fullWidth
-                          active={popoverActive}
-                          activator={activator}
-                          onClose={togglePopoverActive}>
-                          <OptionList
-                            title="Inventory Location"
-                            onChange={setSelectCollection}
-                            options={[
-                              {
-                                value: "byward_market",
-                                label: "Byward Market",
-                              },
-                              { value: "centretown", label: "Centretown" },
-                              {
-                                value: "hintonburg",
-                                label: "Hintonburg",
-                              },
-                              { value: "westboro", label: "Westboro" },
-                              { value: "downtown", label: "Downtown" },
-                            ]}
-                            selected={SelectCollection}
-                            allowMultiple
-                          />
-                        </Popover>
-                        <Popover
-                          active={canActive === "popover1"}
-                          preferredAlignment="right"
-                          activator={btnactivator}
-                          autofocusTarget="first-node"
-                          onClose={() => toggleActive("popover1")}>
-                          {/* <ActionList
-                            actionRole="menuitem"
-                            items={[{ content: "Save as draft" }]}
-                          /> */}
-                          <OptionList
-                            title="Target Area"
-                            onChange={handlechangesecond}
-                            options={optionsArea}
-                            selected={selected}
-                          />
-                        </Popover>
-                      </div>
-                    </div>
-                  </>
-                ) : (
+                  <TextField
+                    label="Pixel ID"
+                    value={fbPixelId}
+                    onChange={handleFbIdChange}
+                    selectTextOnFocus
+                    autoComplete="off"
+                  />
+                </FormLayout.Group>
+                <FormLayout.Group>
                   <Select
                     label="Target Area"
                     options={optionsArea}
                     onChange={handleSelectChange}
                     value={selected}
                   />
-                )}
-              </FormLayout.Group>
-              <FormLayout.Group>
-                <TextField
-                  label="Pixel ID"
-                  value={fbPixelId}
-                  onChange={handleFbIdChange}
-                  selectTextOnFocus
-                  autoComplete="off"
-                />
+                </FormLayout.Group>
+                <FormLayout.Group>
+                  {selected === "Collections" || selected === "Tags" ? (
+                    <>
+                      <div className="hide-scroll">
+                        <Autocomplete
+                          allowMultiple
+                          options={options}
+                          selected={selectedOptions}
+                          textField={textField}
+                          onSelect={setSelectedOptions}
+                          listTitle="Suggested Tags"
+                        />
+                      </div>
+                    </>
+                  ) : null}
+                </FormLayout.Group>
+                <FormLayout.Group>
+                  <TextField
+                    label="Access Token"
+                    value={TokenValue}
+                    type="text"
+                    onChange={handleTokenValueChange}
+                    selectTextOnFocus
+                    autoComplete="off"
+                  />
+                  <TextField
+                    label="Test Event Code"
+                    value={EventCode}
+                    onChange={handleEventCodeChange}
+                    selectTextOnFocus
+                    autoComplete="off"
+                  />
+                </FormLayout.Group>
+              </FormLayout>
+            </Card> */}
+            <Layout>
+              <Layout.Section>
+                <div className="">
+                  <div>
+                    <Layout>
+                      <Layout.AnnotatedSection
+                        id="Merchant Details"
+                        title="Merchant Details"
+                        description="Following are Details of Connected Tiktok Shop.">
+                        <Card sectioned>
+                          <InlineGrid columns={{ xs: 2 }}>
+                            <div className="dis-Last"></div>
+                          </InlineGrid>
+                          <div className="margtop10">
+                            <InlineGrid columns={{ xs: 1 }} gap={200}>
+                              <TextField
+                                label={
+                                  <InlineStack>
+                                    <span>Pixel Name </span>
+                                    <Tooltip
+                                      content="This order has shipping labels."
+                                      className="flex">
+                                      <Icon
+                                        source={QuestionMarkInverseMajor}
+                                        tone="base"
+                                      />
+                                    </Tooltip>
+                                  </InlineStack>
+                                }
+                                value={fbPixelName}
+                                type="text"
+                                onChange={handleFbNameChange}
+                                selectTextOnFocus
+                                autoComplete="off"
+                              />
 
-                <TextField
-                  label="Access Token"
-                  value={TokenValue}
-                  type="text"
-                  onChange={handleTokenValueChange}
-                  selectTextOnFocus
-                  autoComplete="off"
-                />
-              </FormLayout.Group>
-              <TextField
-                label="Test Event Code"
-                value={EventCode}
-                onChange={handleEventCodeChange}
-                selectTextOnFocus
-                autoComplete="off"
-              />
-              <Text>UTM Parameters</Text>
-              <FormLayout.Group condensed>
-                <TextField
-                  label="UTM Source"
-                  labelHidden
-                  placeholder="Source"
-                  value={SourceValue}
-                  onChange={handleSourceValueChange}
-                  autoComplete="off"
-                />
-                <TextField
-                  label="UTM Medium"
-                  labelHidden
-                  placeholder="Medium"
-                  value={MediumValue}
-                  onChange={handleMediumValueChange}
-                  autoComplete="off"
-                />
-                <TextField
-                  label="UTM Campaign"
-                  labelHidden
-                  placeholder="Campaign"
-                  value={CampaignValue}
-                  onChange={handleCampaignValueChange}
-                  autoComplete="off"
-                />
-              </FormLayout.Group>
+                              <TextField
+                                label={
+                                  <InlineStack>
+                                    <span>Pixel ID</span>
+                                    <Tooltip
+                                      content="This order has shipping labels."
+                                      className="flex">
+                                      <Icon
+                                        source={QuestionMarkInverseMajor}
+                                        tone="base"
+                                      />
+                                    </Tooltip>
+                                  </InlineStack>
+                                }
+                                value={fbPixelId}
+                                onChange={handleFbIdChange}
+                                selectTextOnFocus
+                                autoComplete="off"
+                              />
+                              <Select
+                                label={
+                                  <InlineStack>
+                                    <span>Target Area</span>
+                                    <Tooltip
+                                      content="This order has shipping labels."
+                                      className="flex">
+                                      <Icon
+                                        source={QuestionMarkInverseMajor}
+                                        tone="base"
+                                      />
+                                    </Tooltip>
+                                  </InlineStack>
+                                }
+                                options={optionsArea}
+                                onChange={handleSelectChange}
+                                value={selected}
+                              />
+                              {selected === "Collections" ||
+                              selected === "Tags" ? (
+                                <>
+                                  <div className="hide-scroll">
+                                    <Autocomplete
+                                      allowMultiple
+                                      options={options}
+                                      selected={selectedOptions}
+                                      textField={textField}
+                                      onSelect={setSelectedOptions}
+                                      listTitle="Suggested Tags"
+                                    />
+                                  </div>
+                                </>
+                              ) : null}
+                            </InlineGrid>
+                          </div>
+                        </Card>
+                      </Layout.AnnotatedSection>
+                    </Layout>
+                  </div>
+                  <div className="marginTop20">
+                    <Layout>
+                      <Layout.AnnotatedSection
+                        id="Merchant Details"
+                        title="Merchant Details"
+                        description="Following are Details of Connected Tiktok Shop.">
+                        <Card sectioned>
+                          <InlineGrid columns={{ xs: 2 }}>
+                            <div className="dis-Last"></div>
+                          </InlineGrid>
+                          <div className="margtop10">
+                            <InlineGrid columns={{ xs: 1 }} gap={200}>
+                              <TextField
+                                label={
+                                  <InlineStack>
+                                    <span>Access Token</span>
+                                    <Tooltip
+                                      content="This order has shipping labels."
+                                      className="flex">
+                                      <Icon
+                                        source={QuestionMarkInverseMajor}
+                                        tone="base"
+                                      />
+                                    </Tooltip>
+                                  </InlineStack>
+                                }
+                                value={TokenValue}
+                                type="text"
+                                onChange={handleTokenValueChange}
+                                selectTextOnFocus
+                                autoComplete="off"
+                              />
+                              <TextField
+                                label={
+                                  <InlineStack>
+                                    <span>Test Event Code</span>
+                                    <Tooltip
+                                      content="This order has shipping labels."
+                                      className="flex">
+                                      <Icon
+                                        source={QuestionMarkInverseMajor}
+                                        tone="base"
+                                      />
+                                    </Tooltip>
+                                  </InlineStack>
+                                }
+                                value={EventCode}
+                                onChange={handleEventCodeChange}
+                                selectTextOnFocus
+                                autoComplete="off"
+                              />
+                            </InlineGrid>
+                          </div>
+                        </Card>
+                      </Layout.AnnotatedSection>
+                    </Layout>
+                  </div>
+                </div>
+              </Layout.Section>
+            </Layout>
+
+            <Box as="div" className=" dis-center">
               <div className="dis-center">
-                <Button onClick={showForm}> Save</Button>
+                <Button variant="primary" onClick={showForm}>
+                  {" "}
+                  Add Pixel
+                </Button>
               </div>
-            </FormLayout>
-          </Card>
-        </div>
+            </Box>
+          </Box>
+        </Page>
       )}
     </>
   );
